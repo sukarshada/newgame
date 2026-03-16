@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>اكتشف الخطأ</title>
+
+<style>
+body{
+font-family:Arial;
+background:linear-gradient(135deg,#f6d365,#fda085);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+text-align:center;
+}
+
+.container{
+background:white;
+padding:30px;
+border-radius:20px;
+width:90%;
+max-width:600px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.scene{
+font-size:60px;
+margin:25px;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:10px;
+background:#26a69a;
+color:white;
+font-size:18px;
+cursor:pointer;
+margin:6px;
+}
+
+.result{
+margin-top:15px;
+font-size:18px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🔍 لعبة اكتشف الخطأ</h2>
+
+<div id="question">
+ما الخطأ في هذه الصورة؟
+</div>
+
+<div class="scene" id="scene">
+🧑‍🎓💻📱📚
+</div>
+
+<div>
+<button onclick="answer(1)">الهاتف يشتت الانتباه أثناء الدراسة</button>
+<button onclick="answer(2)">الكتب كثيرة</button>
+<button onclick="answer(3)">الكمبيوتر</button>
+</div>
+
+<div class="result" id="result"></div>
+
+<button onclick="next()">سؤال جديد</button>
+
+</div>
+
+<script>
+const scenes=[
+{
+emoji:"🧑‍🎓💻📱📚",
+correct:1,
+options:[
+"الهاتف يشتت الانتباه أثناء الدراسة",
+"الكتب كثيرة",
+"الكمبيوتر"
+]
+},
+{
+emoji:"🧑‍🎓🍫📚🛏️",
+correct:3,
+options:[
+"الشوكولاتة",
+"الكتب",
+"الدراسة على السرير تقلل التركيز"
+]
+},
+{
+emoji:"🧑‍🎓📺📚📝",
+correct:1,
+options:[
+"التلفاز يعمل أثناء الدراسة",
+"الكتب",
+"الورقة"
+]
+}
+]
+
+let current=0
+
+function load(){
+scene.innerText=scenes[current].emoji
+const buttons=document.querySelectorAll("button")
+
+buttons[0].innerText=scenes[current].options[0]
+buttons[1].innerText=scenes[current].options[1]
+buttons[2].innerText=scenes[current].options[2]
+
+result.innerText=""
+}
+
+function answer(a){
+if(a===scenes[current].correct){
+result.innerText="✅ صحيح! أحسنت"
+}else{
+result.innerText="❌ حاول مرة أخرى"
+}
+}
+
+function next(){
+current++
+if(current>=scenes.length){
+current=0
+}
+load()
+}
+
+load()
+</script>
+
+</body>
+</html>
